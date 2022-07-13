@@ -1,8 +1,7 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InputException {
         Scanner scanner = new Scanner(System.in);
         String inputStr;
         ArabNum arabNum = new ArabNum();
@@ -23,27 +22,15 @@ public class Main {
                 System.out.println("Выход. Хорошего Вам дня!"); break;}
             else if (str[0].equals("Й")) {
                 System.out.println("Выход. Хорошего Вам дня!"); break;}
-            else if (str.length < 3) { // проверяем количество операторов
-                System.out.println("throws Exception //Строка не является математической операцией");
-                break;}
-            else if (str.length > 3) { // проверяем количество операторов
-                System.out.println("throws Exception //Формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
-                break;}
-            else if ((arabNum.isArab(str[0]) && RomNum.isRoman(str[2])) || (arabNum.isArab(str[2]) && RomNum.isRoman(str[0]))) {
-                System.out.println("throws Exception //используются одновременно разные системы счисления");
-                break;
-            }
-           // else if (arabNum.isArab(str[0])) {}
+            else if (str.length < 3) throw new InputException("Строка не является математической операцией!");
+            else if (str.length > 3) throw new InputException("Формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+            else if ((arabNum.isArab(str[0]) && RomNum.isRoman(str[2])) || (arabNum.isArab(str[2]) && RomNum.isRoman(str[0])))
+                throw new InputException("Используются одновременно разные системы счисления!");
 
             String calcRes =  calc(inputStr);
-            if (calcRes.length() != 0){
-                String [] outStr = calcRes.split("\\*");
-                if (outStr[0].equals("OK")) System.out.println(outStr[1]);
-                else if (outStr[0].equals("Er")) {
-                    System.out.println("throws Exception //" +outStr[1]);
-                    break;
-                }
-            }
+            String [] outStr = calcRes.split("\\*");
+            if (outStr[0].equals("OK")) System.out.println(outStr[1]);
+            else if (outStr[0].equals("Er")) throw new InputException(outStr[1]);
         }
         scanner.close();
     }

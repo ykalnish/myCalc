@@ -13,14 +13,14 @@ public class ArabNum {
             if(numbers[i].equals(find)) return true;
         return false;
     }
-
+/*
     public int getInt(String find){
         int retVal = 0;
         for(int i = 1; i < this.numbers.length; i++)
             if (numbers[i].equals(find)) retVal = i;
         return retVal;
     }
-
+*/
 }
 
 

@@ -7,10 +7,11 @@ public enum RomNum {
         this.val = val;
     }
 
+    /*
     public int getVal(){
         return val;
     }
-
+*/
     public static boolean isRoman(String test) {
         for (RomNum c : RomNum.values())
             if (c.name().equals(test)) return true;
